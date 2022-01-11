@@ -155,7 +155,7 @@ const Player = React.forwardRef(({ token }, ref) => {
 	};
 
 	const apiUpdate = () => {
-		console.log("hello");
+		console.log("player apiUpdate");
 		if (timerRef.current) {
 			clearTimeout(timerRef.current);
 		}

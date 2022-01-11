@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
 import Icon from "../icons";
 import msTimeFormat from "../../utilities/utils";
+import makeAxiosRequest from "../../utilities/makeAxiosRequest";
 import { PlayContext } from "../../utilities/context";
 
 const TrackListItem = React.forwardRef(
 	({ track, styleName, highlight, playContextTrack }, ref) => {
 		const { album, artists, name, explicit, duration_ms, uri } = track;
 		const updatePlayer = useContext(PlayContext);
+		console.log("track: ", track)
+
+		const [audioFeatures, makeFeaturesRequest] = makeAxiosRequest(`https://api.spotify.com/v1/audio-features/${track.id}`)
+		const [audioAnalysis, makeAnalysisRequest] = makeAxiosRequest(`https://api.spotify.com/v1/audio-analysis/${track.id}`)
+
 
 		let thumbNail;
 		if (styleName === "simplify" && album.images.length > 0) {
@@ -108,7 +114,14 @@ const TrackListItem = React.forwardRef(
 					</div>
 				</div>
 
-				<div className="trackItemDuration">
+				<div className="trackItemDuration" onClick={() => {
+					makeFeaturesRequest().then((data) => {
+						console.log("features: ", data);
+						makeAnalysisRequest().then((analysisData) => {
+							console.log("analysis: ", analysisData)
+						})
+					})
+				}}>
 					<div
 						className={`duration ${
 							styleName === "simplify" ? "trackMidAlign" : "trackTopAlign"
