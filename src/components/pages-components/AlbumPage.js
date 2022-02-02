@@ -15,7 +15,8 @@ import putWithToken from '../../utilities/putWithToken'
 import makeAxiosRequest from '../../utilities/makeAxiosRequest'
 
 export default function AlbumPage() {
-    const id = useId()
+    console.log("album")
+    const id = useId('album')
     const token = useContext(TokenContext)
     const setMessage = useContext(MessageContext)
     const updatePlayer = useContext(PlayContext)
@@ -38,7 +39,6 @@ export default function AlbumPage() {
     const [uri, setUri] = useState('')
     const [setNext, lastRef] = useInfiScroll(setTracks)
     const source = axios.CancelToken.source()
-
     useEffect(() => {
         setTracks([])
         setNext(null)
@@ -108,7 +108,7 @@ export default function AlbumPage() {
             })
             .catch(error => setMessage(`ERROR: ${error}`))
     }
-
+    console.log("tracks:", tracks)
     return (
         loading? 
         <Loading />

@@ -27,6 +27,7 @@ function App() {
   const [token, setToken] = useState(null)
   const [userInfo, setuserInfo] = useState({})
   const [playlists, setPlaylists] = useState([])
+  const [annotations, setAnnotations] = useState([])
 
   const [status, setStatus] = useState(false) 
   const [message, setMessage] = useState('')
@@ -50,11 +51,15 @@ function App() {
         const makeRequests = async() => {
           const requestUserInfo = reqWithToken('https://api.spotify.com/v1/me', access_token, cancelSource) 
           const requestPlayList = reqWithToken(`https://api.spotify.com/v1/me/playlists`, access_token, cancelSource)
-
+          const requestAnnotations = reqWithToken('http://localhost:8000/annotations/', access_token, cancelSource)
+          // requestAnnotations().then((data) => {
+          //     console.log("data", data)
+          // })
           try{
-            const [_userInfo, _playlists] = await Promise.all([requestUserInfo(), requestPlayList()])
+            const [_userInfo, _playlists, _annotations] = await Promise.all([requestUserInfo(), requestPlayList(), requestAnnotations()])
             setuserInfo(_userInfo.data)
             setPlaylists(_playlists.data.items)
+            setAnnotations(_annotations.data['annotations'])
           }catch(error){
             setStatusMessage(`LOGIN ERROR: ${error}`)
           }
@@ -74,11 +79,13 @@ function App() {
             const makeRequests = async() => {
               const requestUserInfo = reqWithToken('https://api.spotify.com/v1/me', access_token, cancelSource) 
               const requestPlayList = reqWithToken(`https://api.spotify.com/v1/me/playlists`, access_token, cancelSource)
-    
+              const requestAnnotations = reqWithToken('http://localhost:8000/annotations/', access_token, cancelSource)
+
               try{
-                const [_userInfo, _playlists] = await Promise.all([requestUserInfo(), requestPlayList()])
+                const [_userInfo, _playlists, _annotations] = await Promise.all([requestUserInfo(), requestPlayList(), requestAnnotations()])
                 setuserInfo(_userInfo.data)
                 setPlaylists(_playlists.data.items)
+                setAnnotations(_annotations.data['annotations'])
 
               }catch(error){
                 console.log(error)

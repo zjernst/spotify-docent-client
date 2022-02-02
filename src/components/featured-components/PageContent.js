@@ -17,7 +17,7 @@ import {LoginContext} from '../../utilities/context'
 
 export default function PageContent({query, playlists, refreshPlaylist, message, status}) {
     const loggedIn = useContext(LoginContext)
-
+    console.log("switch")
     return (
         <>
         <Switch>

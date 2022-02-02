@@ -13,12 +13,12 @@ import useInfiScroll from '../../utilities/hooks/useInfiScroll'
 import putWithToken from '../../utilities/putWithToken'
 
 export default function PlayListPage({playlists, refreshPlaylist}) {
+    console.log("playlist page")
     const id = useId('playlist')
     const loggedIn = useContext(LoginContext)
     const token = useContext(TokenContext)
     const setMessage = useContext(MessageContext)
     const updatePlayer = useContext(PlayContext)
-
     const [loading, setLoading] = useState(true)
 
     const [bannerInfo, setbannerInfo] = useState({

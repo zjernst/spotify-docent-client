@@ -8,7 +8,6 @@ const TrackListItem = React.forwardRef(
 	({ track, styleName, highlight, playContextTrack }, ref) => {
 		const { album, artists, name, explicit, duration_ms, uri } = track;
 		const updatePlayer = useContext(PlayContext);
-		console.log("track: ", track)
 
 		const [audioFeatures, makeFeaturesRequest] = makeAxiosRequest(`https://api.spotify.com/v1/audio-features/${track.id}`)
 		const [audioAnalysis, makeAnalysisRequest] = makeAxiosRequest(`https://api.spotify.com/v1/audio-analysis/${track.id}`)
@@ -105,7 +104,7 @@ const TrackListItem = React.forwardRef(
 									<>
 										<span className="trackInfoSep">•</span>
 										<span className="trackAlbum ellipsis-one-line">
-											<a href={`/ablum/${album.id}`}>{album.name}</a>
+											<a href={`/album/${album.id}`}>{album.name}</a>
 										</span>
 									</>
 								)}
